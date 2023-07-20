@@ -1,0 +1,70 @@
+
+/* Fondo modal: negro con opacidad al 50% */
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  padding-top: 30%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  padding-top: 20px;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-animation-name: animarsuperior;
+  -webkit-animation-duration: 0.5s;
+  animation-name: animarsuperior;
+  animation-duration: 0.5s
+}
+
+.modal-content h1 {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.container-tabla {
+  width: 100%;
+  overflow: auto;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animarsuperior {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+.close {
+  color: white;
+  float: right;
+  font-size: 30px;
+  height: 30px;
+  width: 30px;
+  padding: 0 6px;
+  font-weight: bold;
+  border: 1px solid white;
+  border-radius: 50% 50%;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
