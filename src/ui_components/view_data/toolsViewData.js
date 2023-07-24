@@ -7,48 +7,12 @@ let edit = undefined, _delete = undefined;
 export function CheckData(data, tableName) {
   let isReturn = false;
   
-  if(!Array.isArray(data) || data.length === 0) {
+  if(!Array.isArray(data) || data?.length === 0) {
     isReturn = true;
   }
   
   return {isReturn , table: ( 
-    <table className="table-viewData" >
-      { tableName !== null ? <caption 
-      className="caption-viewData" >{tableName}</caption> : null }
-      
-      <thead>
-        <tr >
-          <th >
-            COLUMN1
-          </th>
-          <th >
-            COLUMN2
-          </th>
-          <th >
-            COLUMN3
-          </th>
-        </tr>
-      </thead>
-      
-      <tbody >
-        <tr >
-          <td ></td>
-          <td ></td>
-          <td ></td>
-        </tr>
-        <tr >
-          <td  colspan="3">No data</td>
-          <td ></td>
-          <td ></td>
-        </tr>
-        <tr >
-          <td ></td>
-          <td ></td>
-          <td ></td>
-        </tr>
-      </tbody>
-      
-    </table>
+    <label style={{color:"red", fontSize:"45px"}} > No data </label>
   )};
 }
 
@@ -56,16 +20,16 @@ export function CheckData(data, tableName) {
 export function wraping(styleHeaderCell, isWrap) {
 
   const styleRowCell = { whiteSpace:"noisWrap", overflow: "auto" }; 
-  Reflect.set(styleHeaderCell, "whiteSpace", "noisWrap");
-  Reflect.set(styleHeaderCell, "overflow", "auto");
+  Reflect?.set(styleHeaderCell, "whiteSpace", "noisWrap");
+  Reflect?.set(styleHeaderCell, "overflow", "auto");
   
   if(isWrap) {
-    Reflect.set(styleRowCell, "whiteSpace", "normal");
-    Reflect.set(styleRowCell, "overflowX", "auto");
-    Reflect.set(styleRowCell, "overflowY", "none");
+    Reflect?.set(styleRowCell, "whiteSpace", "normal");
+    Reflect?.set(styleRowCell, "overflowX", "auto");
+    Reflect?.set(styleRowCell, "overflowY", "none");
     
-    Reflect.set(styleHeaderCell, "whiteSpace", "noisWrap");
-    Reflect.set(styleHeaderCell, "overflow", "auto");
+    Reflect?.set(styleHeaderCell, "whiteSpace", "noisWrap");
+    Reflect?.set(styleHeaderCell, "overflow", "auto");
   }
   
   return styleRowCell;
@@ -75,7 +39,7 @@ export function wraping(styleHeaderCell, isWrap) {
 export function _booleanConvert(property, cellValue, booleanConvert) {
     if(typeof cellValue == "boolean") 
     {
-      let value = Reflect.get(booleanConvert, property);
+      let value = Reflect?.get(booleanConvert, property);
       
       if(value === undefined) throw `'${property}' no found in
       'booleanConvert' attribute.`;
@@ -99,14 +63,16 @@ export function selectBetweenButtonLabel(index, obj, property, styleEditBtn,
   styleFootBtn,
   eventEdit,
   eventDelete,
+  setRows,
   eventOpenModal) {
     
-    const value = Reflect.get(obj, property);
+    const value = Reflect?.get(obj, property);
     
     if(Array.isArray(value) || typeof value === "object") {
+      const _value = {name:"jose", edad:12};
       return <>
         <ModalWindow id={`${index}-${property}`} tableName={property}
-        data={(Array.isArray(value)) ? [value] : value } />
+        data={Array.isArray(value) ? value : [value]} />
         <button
         style={ styleEditBtn  }
         className="btn"
@@ -136,7 +102,7 @@ export function selectBetweenButtonLabel(index, obj, property, styleEditBtn,
         className="btn"
         onClick={ value === edit ?
         (event) => eventEdit(event, index) :
-        (event) => eventDelete(event, index) } >
+        (event) => eventDelete(event, index, setRows) } >
             { value?.toUpperCase() }
         </button>
       }
@@ -150,7 +116,7 @@ export function selectBetweenButtonLabel(index, obj, property, styleEditBtn,
 // Asigna anchos especificado para cada columna.
 export function customsWidth(index, styleObj ={}) {
    
- /*     Reflect.set(styleObj, "display", "grid");
+ /*     Reflect?.set(styleObj, "display", "grid");
       styleObj.gridTemplateColumns ="50px 50px 50px 50px 50px 80px 30px";
     */
     return styleObj;
@@ -191,7 +157,7 @@ function getLang(btn,languaje) {
 const [headers, setHeaders] = useState(
  [...
     [...
-      [...Reflect.ownKeys(data[0]), edit, _delete]
+      [...(data.length !== 0 ? Reflect?.ownKeys(data[0]) : []), edit, _delete]
       .filter((e) => Boolean(e))
     ].filter((e, i) =>
     {
@@ -217,45 +183,28 @@ const [conbainerHeaders, setConbainerHeaders] = useState(
     .filter((e) => Boolean(e))
  ] 
    :
- [...
-    [...
-      [...Reflect.ownKeys(data[0]), edit, _delete]
-      .filter((e) => Boolean(e))
-    ].filter((e, i) =>
-    {
-   
-    let ret = true;
-    
-    if(hiddenColumn.length !== 0)
-    
-      hiddenColumn.forEach(col => { 
-        if(col === i) ret = false;
-      })
-    
-      return ret;
-    })
-  ]
+   headers
 );
 
 //* Asigna los bootones como propiedades y valor.
 if(edit !== undefined)
-  data.map(e => Reflect.set(e, edit, edit) );
+  data?.map(e => Reflect?.set(e, edit, edit) );
 
 if(_delete !== undefined)
-  data.map(e => Reflect.set(e, _delete, _delete) );
+  data?.map(e => Reflect?.set(e, _delete, _delete) );
   
   return {headers, conbainerHeaders };
 }
 
 export function getDataPage(data = [], dn, an) {
-  if(data.length === 0) return [];
+  if(data?.length === 0 || !Array.isArray(data)) return [];
   
   return data?.filter((e,i) => i >= dn && i < an);
 }
 
 export function getPaginator(data, pages, styleFootBtn, setArr ) {
 
-  const _pages = Math.ceil(data.length / pages);
+  const _pages = Math.ceil(data?.length / pages);
   
   const pagesNum  = [];
   

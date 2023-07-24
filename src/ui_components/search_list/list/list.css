@@ -1,0 +1,87 @@
+
+.ul-List {
+  height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.li-List {
+  padding-inline: 3px;
+  
+}
+
+.container-item-button-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container-item-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container-item-list div {
+  width: 100%;
+  border-right: 2px solid #5f5f5f;
+  border-bottom: 2px solid #5f5f5f;
+  padding-left: 3px;
+  padding-bottom: 3px;
+  overflow-x: auto;
+}
+
+.container-item-list .last-child {
+  border-width: 0;
+  width: 159px;
+  border-bottom: 2px solid #5f5f5f;
+  padding-left: 3px;
+  padding-bottom: 3px;
+}
+
+.container-item-button-list div {
+  width: 100%;
+  border-right: 2px solid #5f5f5f;
+  padding-left: 3px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  overflow-x: auto;
+}
+
+.container-item-button-list button {
+  margin-left: 10px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.label-cib-list {
+  font-family: Arial;
+}
+
+.button-cib-list {
+  padding: 2px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 5px 10px;
+  border-top-color: #02b1ff;
+  border-right-color:  #02b1ff;
+  border-bottom-color: #005174;
+  border-left-color:  #005174;
+}
+
+.container-ul-list {
+  width: 100%;
+  position: absolute;
+  top: 28px;
+  padding-top: 4px;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.5);  
+}
+
+.label-total-price-list {
+  box-sizing: border-box;
+  padding: 5px;
+  font-family: Arial;
+}

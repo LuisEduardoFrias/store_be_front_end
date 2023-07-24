@@ -8,7 +8,8 @@ export default function ModalWindow({data = [], id, tableName="modal"}) {
       document.getElementById(id).style.display = "none";
     }
   });
-
+  
+  const _data = data;
   return (  
     <div id={id} class="modal">
       <div class="modal-content">
@@ -23,7 +24,7 @@ export default function ModalWindow({data = [], id, tableName="modal"}) {
           hiddenColumn={[0]}
          // pages = {15}
           languaje="en"
-          data={data}
+          data={_data}
 
           />
         </div>

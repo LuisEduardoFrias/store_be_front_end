@@ -1,90 +1,62 @@
-import { Form } from "react-router-dom";
+import Form from "../../ui_components/form/form";
+import "./addPages.css";
+import { api } from '../../callApi';
 
 export default function AddProducts() {
-  const contact = {
-    first: "Your",
-    last: "Name",
-    avatar: "https://placekitten.com/g/200/200",
-    twitter: "your_handle",
-    notes: "Some notes",
-    favorite: true,
-  };
-
+  
+  const forms = [
+    {
+      itemName : "input",
+      title: "Name",
+      type: "text",
+      name:  "Name",
+    },
+    {
+      itemName : "input",
+      title: "Description",
+      type: "text",
+      name:  "Description",
+    },
+    {
+      itemName : "input",
+      title: "Purchase Price",
+      type: "Number",
+      name:  "PurchasePrice",
+    },
+    {
+      itemName : "input",
+      title: "Itbis",
+      type: "Number",
+      name:  "Itbis",
+    },
+    {
+      itemName : "input",
+      title: "Stock",
+      type: "Number",
+      name:  "Stock",
+    },
+  ]
+  
+  const submit = (state, setState) => {
+    const newStyle = state;
+    delete newStyle.loader;
+    
+    api.post('/products', newStyle, (response) => {
+      if(!response.err)
+      {
+        alert(response.data.data);
+        setState({loader: false})
+      }
+      else {
+        alert(response.err)
+        setState({...state, loader: false})
+      }
+    });
+  }
+  
   return (
-    <div id="contact">
-      <div>
-        <img
-          key={contact.avatar}
-          src={contact.avatar || null}
-        />
-      </div>
-
-      <div>
-        <h1>
-          {contact.first || contact.last ? (
-            <>
-              {contact.first} {contact.last}
-            </>
-          ) : (
-            <i>No Name</i>
-          )}{" "}
-          <Favorite contact={contact} />
-        </h1>
-
-        {contact.twitter && (
-          <p>
-            <a
-              target="_blank"
-              href={`https://twitter.com/${contact.twitter}`}
-            >
-              {contact.twitter}
-            </a>
-          </p>
-        )}
-
-        {contact.notes && <p>{contact.notes}</p>}
-
-        <div>
-          <Form action="edit">
-            <button type="submit">Edit</button>
-          </Form>
-          <Form
-            method="post"
-            action="destroy"
-            onSubmit={(event) => {
-              if (
-//                 !confirm(
-              alert("Please confirm you want to delete this record."
-                )
-              ) {
-                event.preventDefault();
-              }
-            }}
-          >
-            <button type="submit">Delete</button>
-          </Form>
-        </div>
-      </div>
+    <div className="contact">
+      <Form tittle="Product" textSubmit="Create" submit={submit} forms={forms} />
     </div>
-  );
-}
-
-function Favorite({ contact }) {
-  // yes, this is a `let` for later
-  let favorite = contact.favorite;
-  return (
-    <Form method="post">
-      <button
-        name="favorite"
-        value={favorite ? "false" : "true"}
-        aria-label={
-          favorite
-            ? "Remove from favorites"
-            : "Add to favorites"
-        }
-      >
-        {favorite ? "★" : "☆"}
-      </button>
-    </Form>
   );
 }

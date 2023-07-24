@@ -36,7 +36,7 @@ export default function ViewsData(props) {
     // datos
     data = [] } = props;
   
-  const [arr, setArr] = useState(getDataPage(data, 0, pages));
+  const [rows, setRows] = useState(getDataPage(data, 0, pages));
 
   const {headers, conbainerHeaders} = useInsertButtons(eventEdit, eventDelete, data, languaje, hiddenColumn, customHeaders );
 
@@ -45,8 +45,7 @@ export default function ViewsData(props) {
   
   // wraping();
   
-  const pagesNum  =  getPaginator(data, pages, styleFootBtn, setArr);
-  
+  const pagesNum  =  getPaginator(data, pages, styleFootBtn, setRows);
   
   function eventOpenModal(event, id) {
     var modal = document.getElementById(id);
@@ -75,14 +74,15 @@ export default function ViewsData(props) {
       
      <tbody className="tbody-viewData" style={styleTBody} >
        { 
-          arr?.map((e,index) => 
+          rows?.map((e,index) => 
             <tr className="tr-viewData" 
                 style={ getColorRow(index ,styleTr, colorRow, colorBetweenRow) }>
               { headers?.map( h => 
               
                 <td className="th-viewData" style={ styleTd } >
                  { 
-                    selectBetweenButtonLabel(index, e, h, styleEditBtn, styleDeleteBtn, styleFootBtn, eventEdit, eventDelete, eventOpenModal)
+                    selectBetweenButtonLabel(index, e, h, styleEditBtn,
+                    styleDeleteBtn, styleFootBtn, eventEdit, eventDelete, setRows, eventOpenModal)
                   } 
                 </td>)
               }

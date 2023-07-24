@@ -2,31 +2,33 @@ import { useState, useEffect } from "react";
 import './viewStylePage.css';
 import { api } from '../../callApi';
 import ViewsData from '../../ui_components/view_data/viewsData';
-
-// colorBR="#4b7bff" colorR="#4bbcff" 
+import LdDualRing from '../../ui_components/ld_dual_ring/ldDualRing';
 
 export default function ViewProducts() {
   
- const [ result , setData] = useState({err:null, data:null});
-  
+ const [ products , setProduct] = useState(null);
+ const [ error , setError] = useState("");
+ 
  const baseUrl = '/products';
  
- useEffect(() => {
-   setTimeout(function(){
-    api.get(baseUrl, setData);
-   }, 3000);
-  }, []) 
+ useEffect(() => 
+ {
+    setTimeout(function(){
+      api.get(baseUrl, (resp) => {
+        if(resp.err) {
+          setError(resp.err);
+        } else {
+          setProduct(resp.data)
+        }
+      });
+    }, 3000);
+  }, []);
 
   return (
     <div className="page" > 
-     {  !result.data ? 
+     {  !products ? 
           
-           <div className="container-load ">
-             { !result.err ? 
-               <div className="ld-dual-ring"></div> : 
-               <label className="error-label">{result.err}</label> 
-             }
-           </div>
+          <LdDualRing error={error} errorMessage={error} />
           
           :
           
@@ -34,28 +36,41 @@ export default function ViewProducts() {
           tableName = "Products"
           hiddenColumn={[0,3]}
           languaje="en"
-          data={result.data}
+          data={products}
           eventEdit={(event, index) => {alert("edit no configurado: "+index)}} 
-          eventDelete={(event, index) => 
+ 
+          eventDelete={(event, index, setRows) => 
           { 
-            const key = result.data[index].key;
+            const key = products[index].key;
            
             if(key) {
-            
-              api.delete(baseUrl, key, setData);
-            
-              if(result.err) {
-                alert(result.err)
-              } else {
+             /*
+              api.delete(baseUrl, key, (resp) => {
               
-                setData({err: null, data: [...result.data.filter( (e,i) => i !== index)]});
-              }
+                if(resp.err) {
+                  alert(resp.err)
+                } else {
+                  alert(resp.data.data)
+                  
+                  setProduct([...products.filter((e,i) => i !== index)]);
+                }
+              }); */
+              
+              
+              alert("by backend logic the 'products' are not deleted, this is a simulation.")
+              
+              const newProducts = [...products.filter((e,i) => i !==
+              index)];
+              
+              setRows(newProducts)
+              setProduct(newProducts)
+             
             }
             else {
-              setData({err: "key undefined",  data: null});
+              alert("key undefined");
             }
-          }
-        }  
+          } 
+        } 
        /> 
         
       }
