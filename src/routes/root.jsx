@@ -1,4 +1,5 @@
 import { Outlet, Link } from "react-router-dom";
+import { useState } from "react";
 import "./root.css"
 import NavBar from "../ui_components/nav_bar/navBar";
 
@@ -60,6 +61,38 @@ const _nav = [
 ]
 
 export default function Root() {
+  
+  const [click, setClick] = useState(false);
+  
+  const menuClick = (event) => {
+    
+    const sidebar = document.querySelector(".sidebar");
+    const layout = document.querySelector(".layout");
+    
+    if(!click) {
+      event.target.style.transform = "rotate3d(0, 0, 1, 90deg)";
+      event.target.style.display = "flex";
+      event.target.style.justifyContent = "center";
+      event.target.style.alignItems = "center";
+   
+      layout.style.gridTemplateColumns = "150px 1fr";
+      layout.style.gridTemplateRows = "100vh";
+      layout.style.gridTemplateAreas = '"sidebar mainLayout"';
+  
+      sidebar.style.display = "block"
+    }
+    else {
+      event.target.style.transform = "rotate3d(0, 0, 1, 0deg)";
+      
+      layout.style.gridTemplateColumns = "1fr";
+      layout.style.gridTemplateAreas = '"mainLayout"';
+  
+      sidebar.style.display = "none"
+    }
+    
+    setClick(!click);
+ }
+
   return (
     <div class="layout">
      
@@ -79,7 +112,7 @@ export default function Root() {
       </aside>
         
       <main class="main-layout"> 
-        <div id="menu-burguer" >
+        <div id="menu-burguer" onClick={menuClick} >
            <span class="material-symbols-rounded">menu</span>
         </div>
         <Outlet />

@@ -20,9 +20,8 @@ export default function AddBuys() {
 }
 
 function Buys({data}) {
-  
-  const [buyState, setBuyState] = useState({});
-  const baseUrl = '/bills';
+ 
+  const baseUrl = '/buys';
   
   const forms = [
     {
@@ -36,12 +35,13 @@ function Buys({data}) {
     },
     {
       itemName: "select",
-      title: "clients",
+      title: "Clients",
+      name: "Client",
       options: [],
     },
     {
       itemName: "search_list",
-      name: "Product"
+      name: "Products"
     }
   ];
   
@@ -53,54 +53,29 @@ function Buys({data}) {
    
   forms[1].options = _options;
   
-  let isPost = false;
-  useEffect(() => {
-    if(isPost) {
-      if(buyState.err) {
-        alert("Buy done")
-      } else {
-        alert(buyState.err)
-      }
-    }
-    
-    isPost = false;
-    setBuyState({});
-  },[buyState])
-  
   const submit = (state, setState) => {
     
-     setBuyState(state);
-     
-    if(state.err === undefined) {
       const newState = state;
       let TotalPrice = 0;
       
-      newState.Product.forEach(e => TotalPrice += e.price);
+      newState.Products.forEach(e => TotalPrice += e.price);
     
       newState.TotalPrice = TotalPrice.toFixed(2);
-      newState.Product = newState.Product.map(e => e.key);
-    
-      api.post(baseUrl, newState, setBuyState );
-      isPost = true;
-    }
-    
-    /*  
-  const newStyle = state;
-    delete newStyle.loader;
-    
-    api.post('/products', newStyle, (response) => {
-      if(!response.err)
-      {
-        alert(response.data.data);
-        setState({loader: false})
-      }
-      else {
-        alert(response.err)
-        setState({...state, loader: false})
-      }
-    }); */
-   
-  
+      newState.Products = newState.Products.map(e => e.key);
+      delete newState.loader; 
+      
+      api.post(baseUrl, newState, (response) => {
+ 
+       if(!response.err)
+       {
+          alert(response.data.data);
+          setState({loader: false})
+        }
+        else {
+          alert(response.err)
+          setState({...state, loader: false})
+        }
+      }); 
   }
 
   return (

@@ -13,24 +13,25 @@ export default function List({ items, onRemoveItem }) {
            <div className="last-child" ><label className="label-price-cib-list" > Remove </label></div>
           </div>
         </li>
-        {items?.map(item => {
+        {items?.map((item, index) => {
         
         totalprice += item.price;
         return (
-          <li key={item.key} className="li-List" >
+          <li key={index} className="li-List" >
             <Item
               item={item}
+              index={index}
               onRemoveItem={onRemoveItem}
             />
           </li>
         )})}
       </ul>
-      <label className="label-total-price-list" >total price: {totalprice.toFixed(2)}</label>
+      <label className="label-total-price-list" >total price: {totalprice?.toFixed(2)}</label>
     </div>
   );
 }
   
-function Item({ item, onRemoveItem }) {
+function Item({ item, index, onRemoveItem }) {
   return (
     <div className="container-item-button-list" >
       <div>
@@ -40,11 +41,11 @@ function Item({ item, onRemoveItem }) {
       </div>
       <div>
         <label className="label-price-cib-list" >
-          {item.price} 
+          {item.price?.toFixed(2)} 
         </label>
       </div>
       <button type="button" className="button-cib-list" 
-      onClick={ () => onRemoveItem(item.key) }>
+      onClick={ () => onRemoveItem(index) }>
         remove
       </button>
     </div>

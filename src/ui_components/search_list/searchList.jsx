@@ -3,7 +3,7 @@ import Search from './search/search';
 import List from './list/list';
 import "./searchList.css";
 
-export default function SearchList({ onChange, name, value=[]}) {
+export default function SearchList({ onChange, placeholder, name, value=[]}) {
 
   const [items, setItems] = useState(value);
 
@@ -12,21 +12,22 @@ export default function SearchList({ onChange, name, value=[]}) {
   },[items])
 
   function handleAddItem(data) {
-    setItems([...items, {
+    setItems(state => [...state, {
       key: data.key,
       price: data.price,
       name: data.name,
     }]);
   }
 
-  function handleRemoveItem(key) {
-    setItems(items.filter(t => t.key !== key))
+  function handleRemoveItem(index) {
+    setItems(items.filter((t, i) => i !== index))
   }
 
   return (
     <div className="container-searchList" >
       <Search
         onAddItem={handleAddItem}
+        placeholder={placeholder}
       />
       <List
         items={items}

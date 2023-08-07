@@ -63,18 +63,20 @@ export function selectBetweenButtonLabel(index, obj, property, styleEditBtn,
   styleFootBtn,
   eventEdit,
   eventDelete,
+  hiddenColumn,
   setRows,
   eventOpenModal) {
     
     const value = Reflect?.get(obj, property);
     
     if(Array.isArray(value) || typeof value === "object") {
-      const _value = {name:"jose", edad:12};
+     // const _value = {name:"jose", edad:12};
       return <>
         <ModalWindow id={`${index}-${property}`} tableName={property}
         data={Array.isArray(value) ? value : [value]} />
         <button
         style={ styleEditBtn  }
+        hiddenColumn={hiddenColumn}
         className="btn"
         onClick={ 
         (event) => eventOpenModal(event, `${index}-${property}`) } >

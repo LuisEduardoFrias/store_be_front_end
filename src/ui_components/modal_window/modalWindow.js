@@ -1,7 +1,7 @@
 import './modalWindow.css';
 import ViewsData from '../view_data/viewsData';
 
-export default function ModalWindow({data = [], id, tableName="modal"}) {
+export default function ModalWindow({data = [], id, tableName="modal", hiddenColumn= [0] }) {
 
  window.addEventListener("click",function(event) {
     if (event.target == document.getElementById(id)) {
@@ -21,7 +21,7 @@ export default function ModalWindow({data = [], id, tableName="modal"}) {
         <ViewsData
           tableName={tableName}
           //customHeaders={["Nombre","descripcion","Fecha de regristo"]}
-          hiddenColumn={[0]}
+          hiddenColumn={hiddenColumn}
          // pages = {15}
           languaje="en"
           data={_data}

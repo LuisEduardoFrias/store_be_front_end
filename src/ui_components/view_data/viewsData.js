@@ -82,7 +82,10 @@ export default function ViewsData(props) {
                 <td className="th-viewData" style={ styleTd } >
                  { 
                     selectBetweenButtonLabel(index, e, h, styleEditBtn,
-                    styleDeleteBtn, styleFootBtn, eventEdit, eventDelete, setRows, eventOpenModal)
+                    styleDeleteBtn, styleFootBtn, eventEdit,
+                    eventDelete,
+                    //columna que no se muestaen la ventana modal
+                    [0,3,6], setRows, eventOpenModal)
                   } 
                 </td>)
               }

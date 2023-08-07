@@ -19,7 +19,11 @@
   border-radius: 50% 50%;
   width: 30px;
   height: 30px;
-  position: absolute;
+  position: static;
+}
+
+#menu-burguer span {
+  user-select: none;
 }
 
 @media (width <= 400px) {
@@ -30,13 +34,19 @@
     grid-template-columns: 1fr;
     grid-template-areas: "mainLayout";
   }
+/*  .main-layout {
+    perspective: 800px;
+  }*/
   #menu-burguer {
-    display: inline;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
   
-#menu-burguer:hover{
-  transform: rotateZ(180deg);
+#menu-burguer:active{
+  border: 2px double #0082ff;
+  box-shadow: 0 0 1px 1px white inset, 0 0 1px 1px white;
 }
 
 .main-layout {

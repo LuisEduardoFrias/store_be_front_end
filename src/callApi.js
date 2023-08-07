@@ -51,7 +51,8 @@ export default class ApiC {
         setState({err: null, data})   
       })
       .catch((err) => {    
-        setState({err:"Hubo un problema con la petición Fetch: " + err.message + CPath , data: {}})
+        setState({err:"Hubo un problema con la petición Fetch: " + err.message +
+        "\n" + CPath , data: {}})
       });   
     } catch (err) {
       setState({err, data: {}})

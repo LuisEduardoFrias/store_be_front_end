@@ -25,7 +25,6 @@ export default function Form({ initState = {}, forms, tittle, textSubmit, submit
         }
       })
     }
-    
   },[state])
   
   const handleChange = (e) => {
@@ -42,7 +41,7 @@ export default function Form({ initState = {}, forms, tittle, textSubmit, submit
     submit(state, setState)
   }
 
-  const getSelect = (title, options, _className) => 
+  const getSelect = (title, name, options, _className) => 
   {
         
     const _options = [];
@@ -56,7 +55,7 @@ export default function Form({ initState = {}, forms, tittle, textSubmit, submit
     return(
       <div className="container-select" >
         <label for>{title}</label> 
-        <select name={title} className={_className} onChange={handleChange} >
+        <select name={name} className={_className} onChange={handleChange} >
           <option>select {title}</option>
           {_options}
         </select>
@@ -85,7 +84,7 @@ export default function Form({ initState = {}, forms, tittle, textSubmit, submit
          readOnly={item?.readOnly} />
       </div>),
       
-      select : getSelect(item.title, item.options, _className),
+      select : getSelect(item.title, item.name, item.options, _className),
       
       radio : (
       <div>
